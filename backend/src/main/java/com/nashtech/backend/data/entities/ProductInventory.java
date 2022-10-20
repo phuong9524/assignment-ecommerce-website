@@ -18,7 +18,7 @@ public class ProductInventory {
 
     private Integer quantity;
 
-    @OneToOne
+    @OneToOne(mappedBy = "productInventory")
     private Product product;
 
 }

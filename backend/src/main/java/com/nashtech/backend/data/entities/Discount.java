@@ -26,6 +26,6 @@ public class Discount {
 
     private Boolean active;
 
-    @OneToMany
+    @OneToMany(mappedBy = "discount")
     private List<Product> products;
 }

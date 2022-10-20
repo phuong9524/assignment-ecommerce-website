@@ -24,7 +24,7 @@ public class ProductCategory {
     @Column
     private String categoryDesc;
 
-    @OneToMany
+    @OneToMany(mappedBy = "productCategory")
     private List<Product> products;
 
 

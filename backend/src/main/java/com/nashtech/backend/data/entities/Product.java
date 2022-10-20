@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Entity
 @NoArgsConstructor
 @Table(name = "product")
-public class Product {
+public class Product extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,16 +23,17 @@ public class Product {
 
     private String desc;
 
-    private String SKU;
-
-    @ManyToOne()
-    private ProductCategory productCategory;
-
-    @OneToOne()
-    private ProductInventory productInventory;
-
     private Double price;
 
     @ManyToOne()
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private ProductCategory productCategory;
+
+    @OneToOne()
+    @JoinColumn(name = "inventory_id", referencedColumnName = "id")
+    private ProductInventory productInventory;
+
+    @ManyToOne()
+    @JoinColumn(name = "discount", referencedColumnName = "id")
     private Discount discount;
 }
