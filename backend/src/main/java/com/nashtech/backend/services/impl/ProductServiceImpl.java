@@ -19,6 +19,13 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     private ProductMapper productMapper;
 
+    @Autowired
+    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper) {
+        this.productRepository = productRepository;
+        this.productMapper = productMapper;
+    }
+
+
     @Override
     public ProductResponseDto getProductByIdDto(Integer id) {
         Optional<Product> productOptional = this.productRepository.findById(id);
