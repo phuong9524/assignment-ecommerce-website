@@ -54,4 +54,14 @@ public class ProductServiceImpl implements ProductService {
         product = productRepository.save(product);
         return productMapper.mapEntityToDto(product);
     }
+
+    @Override
+    public ProductResponseDto deleteProduct(Integer id) {
+        Optional<Product> productOptional = productRepository.findById(id);
+        if (productOptional.isPresent()) {
+            this.productRepository.deleteById(id);
+        }
+        throw new ProductNotFoundException();
+
+    }
 }

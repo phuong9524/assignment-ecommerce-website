@@ -1,5 +1,6 @@
 package com.nashtech.backend.controller.rest;
 
+import com.nashtech.backend.data.entities.Product;
 import com.nashtech.backend.dto.request.ProductUpdateDto;
 import com.nashtech.backend.dto.response.ProductResponseDto;
 import com.nashtech.backend.services.ProductService;
@@ -10,11 +11,11 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("api/products")
+@RequestMapping("/api/products")
 public class ProductController {
     private ProductService productService;
 
-    @GetMapping("api/add/{id}")
+    @GetMapping("/api/add/{id}")
     ProductResponseDto getProductByIdDto(@PathVariable("id") Integer id) {
         return this.productService.getProductByIdDto(id);
     }
@@ -25,9 +26,14 @@ public class ProductController {
         return this.productService.createProduct(dto);
     }
 
-    @PutMapping("api/update/{id}")
+    @PutMapping("/api/update/{id}")
     ProductResponseDto updateProduct(@PathVariable("id") Integer id, @RequestBody ProductUpdateDto dto) {
         return this.productService.updateProduct(id, dto);
+    }
+
+    @DeleteMapping("/api/delete/{id}")
+    ProductResponseDto deleteProduct(@PathVariable("id") Integer id) {
+        return this.productService.deleteProduct(id);
     }
 
 }
