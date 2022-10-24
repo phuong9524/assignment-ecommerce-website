@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table (name = "product_inventory")
-public class ProductInventory {
+public class ProductInventory extends Auditable{
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;

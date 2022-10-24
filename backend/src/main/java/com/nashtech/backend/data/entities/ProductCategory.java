@@ -6,14 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "product_category")
-public class ProductCategory {
+public class ProductCategory extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,8 +25,6 @@ public class ProductCategory {
     private String categoryDesc;
 
     @OneToMany(mappedBy = "productCategory")
-    private List<Product> products;
-
-
+    private Set<Product> products;
 
 }

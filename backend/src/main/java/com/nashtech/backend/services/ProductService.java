@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface ProductService {
 
-    public ProductResponseDto getProductByIdDto(Integer id);
+    ProductResponseDto getProductById(Integer id);
 
-    public ProductResponseDto createProduct(ProductUpdateDto dto);
+    ProductResponseDto createProduct(ProductUpdateDto dto);
 
-    public ProductResponseDto updateProduct(Integer id, ProductUpdateDto dto);
+    ProductResponseDto updateProduct(Integer id, ProductUpdateDto dto);
 
-    public ProductResponseDto deleteProduct(Integer id);
+    ProductResponseDto deleteProduct(Integer id);
 
 }

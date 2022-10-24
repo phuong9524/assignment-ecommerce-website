@@ -11,20 +11,20 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table (name = "discount")
-public class Discount extends Auditable{
+@Table(name = "cart")
+public class Cart extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column (name = "name")
-    private String discountName;
+    private Double total;
 
-    @Column (name = "desc")
-    private String discountDesc;
+    private boolean paid;
 
-    private Boolean active;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
-    @OneToMany(mappedBy = "discount")
-    private Set<Product> products;
+    @OneToMany
+    private Set<CartItem> cartItem;
 }
