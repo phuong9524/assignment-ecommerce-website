@@ -3,12 +3,9 @@ package com.nashtech.backend.dto.request;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nashtech.backend.data.entities.ProductCategory;
-import com.nashtech.backend.data.entities.ProductInventory;
-import com.nashtech.backend.data.entities.Rating;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -17,7 +14,6 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @NoArgsConstructor
 public class ProductUpdateDto {
-
     @NotBlank(message = "Product name is required")
     private String name;
 
@@ -31,23 +27,18 @@ public class ProductUpdateDto {
 
     private ProductCategory productCategory;
 
-    private ProductInventory productInventory;
-
-
     @JsonCreator
     public ProductUpdateDto(
             @JsonProperty("name") String name,
             @JsonProperty("desc") String desc,
             @JsonProperty("price") Double price,
             @JsonProperty("image") String image,
-            @JsonProperty("productCategory") ProductCategory productCategory,
-            @JsonProperty("productInventory") ProductInventory productInventory) {
+            @JsonProperty("productCategory") ProductCategory productCategory) {
         this.name = name;
         this.desc = desc;
         this.price = price;
         this.image = image;
         this.productCategory = productCategory;
-        this.productInventory = productInventory;
     }
 
 

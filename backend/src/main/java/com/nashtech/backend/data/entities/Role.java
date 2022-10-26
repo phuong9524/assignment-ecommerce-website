@@ -1,5 +1,6 @@
 package com.nashtech.backend.data.entities;
 
+import com.nashtech.backend.constant.AccountRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,5 +17,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private AccountRole name;
+
+    public Role(AccountRole name) {
+        this.name = name;
+    }
 }

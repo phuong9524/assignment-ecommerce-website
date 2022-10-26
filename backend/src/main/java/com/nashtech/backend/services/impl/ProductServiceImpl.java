@@ -7,6 +7,7 @@ import com.nashtech.backend.dto.response.ProductResponseDto;
 import com.nashtech.backend.exceptions.ProductNotFoundException;
 import com.nashtech.backend.mappers.ProductMapper;
 import com.nashtech.backend.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,8 +15,14 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private ProductRepository productRepository;
-    private ProductMapper productMapper;
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
+
+    @Autowired
+    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper) {
+        this.productRepository = productRepository;
+        this.productMapper = productMapper;
+    }
 
     @Override
     public ProductResponseDto getProductById(Integer id) {
