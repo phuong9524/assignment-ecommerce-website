@@ -24,5 +24,4 @@ public class Auditable {
     @Column(name = "modified_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedDate;
-
 }

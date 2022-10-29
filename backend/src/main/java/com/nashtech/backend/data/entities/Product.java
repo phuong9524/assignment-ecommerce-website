@@ -1,17 +1,14 @@
 package com.nashtech.backend.data.entities;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 @Entity
 @Table(name = "product")
 @NoArgsConstructor
@@ -32,29 +29,11 @@ public class Product extends Auditable{
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private ProductCategory productCategory;
 
-    @OneToOne()
-    @JoinColumn(name = "inventory_id", referencedColumnName = "id")
-    private ProductInventory productInventory;
-
     @ManyToOne()
-    @JoinColumn(name = "discount", referencedColumnName = "id")
+    @JoinColumn(name = "discount_id", referencedColumnName = "id")
     private Discount discount;
 
-    public Product(Integer id,
-                   String name,
-                   String desc,
-                   Double price,
-                   String image,
-                   ProductCategory productCategory,
-                   ProductInventory productInventory,
-                   Discount discount) {
-        this.id = id;
-        this.name = name;
-        this.desc = desc;
-        this.price = price;
-        this.image = image;
-        this.productCategory = productCategory;
-        this.productInventory = productInventory;
-        this.discount = discount;
-    }
+    @OneToMany()
+    private List<Rating> rating = new ArrayList<>();
+
 }

@@ -7,7 +7,7 @@ import com.nashtech.backend.data.repositories.RoleRepository;
 import com.nashtech.backend.data.repositories.UserRepository;
 import com.nashtech.backend.dto.request.LoginRequestDto;
 import com.nashtech.backend.dto.request.SignupRequestDto;
-import com.nashtech.backend.dto.response.JwtResponse;
+import com.nashtech.backend.dto.response.JwtResponseDto;
 import com.nashtech.backend.dto.response.MessageResponseDto;
 import com.nashtech.backend.security.JwtUtils;
 import com.nashtech.backend.services.AuthService;
@@ -63,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
+        return ResponseEntity.ok(new JwtResponseDto(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),

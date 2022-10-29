@@ -9,4 +9,6 @@ public interface AuthService {
     ResponseEntity<?> authenticateUser(LoginRequestDto loginRequestDto);
 
     ResponseEntity<?> registerUser(SignupRequestDto signupRequestDto);
+
+
 }

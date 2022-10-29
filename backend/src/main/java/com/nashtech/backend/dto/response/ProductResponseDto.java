@@ -10,9 +10,9 @@ public class ProductResponseDto extends ProductInfoDto {
     final String creationDate;
     final String lastModifiedDate;
 
-    @Builder(builderMethodName = "builder")
+    @Builder()
     @JsonCreator
-    private ProductResponseDto(
+    public ProductResponseDto(
             @JsonProperty("name") final String name,
             @JsonProperty("desc") final String desc,
             @JsonProperty("price") final Double price,
