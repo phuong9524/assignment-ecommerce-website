@@ -3,7 +3,6 @@ package com.nashtech.backend.mappers;
 import com.nashtech.backend.data.entities.ProductCategory;
 import com.nashtech.backend.dto.request.CategoryRequestDto;
 import com.nashtech.backend.dto.response.CategoryResponseDto;
-import com.nashtech.backend.dto.response.ProductResponseDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

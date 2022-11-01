@@ -25,7 +25,7 @@ public class RatingResponseDto {
             @JsonProperty("rate") Double rate,
             @JsonProperty("comment") String comment,
             @JsonProperty("product") Product product,
-            @JsonProperty("user") User user) {
+            @JsonProperty("user_id") User user) {
         this.rate = rate;
         this.comment = comment;
         this.product = product;

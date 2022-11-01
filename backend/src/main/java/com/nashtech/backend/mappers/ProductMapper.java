@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class ProductMapper {
     public ProductResponseDto mapEntityToDto(Product product) {
         return ProductResponseDto.builder()
+                .id(product.getId())
                 .name(product.getName())
                 .desc(product.getDesc())
                 .price(product.getPrice())
@@ -25,6 +26,7 @@ public class ProductMapper {
     public List<ProductResponseDto> mapListEntityToListDto(List<Product> product) {
         return product.stream()
                 .map(product1 -> new ProductResponseDto(
+                        product1.getId(),
                         product1.getName(),
                         product1.getDesc(),
                         product1.getPrice(),

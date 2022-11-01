@@ -15,5 +15,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             nativeQuery = true)
     List<Product> ShowAllProductByCategory(String name);
 
+    Product findProductById(int id);
 
 }

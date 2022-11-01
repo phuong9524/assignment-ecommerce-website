@@ -1,8 +1,12 @@
 package com.nashtech.backend.controller.rest;
 
+import com.nashtech.backend.data.entities.Product;
+import com.nashtech.backend.data.repositories.ProductRepository;
 import com.nashtech.backend.dto.request.ProductUpdateDto;
 import com.nashtech.backend.dto.response.ProductResponseDto;
 import com.nashtech.backend.services.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,21 +15,35 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+
 @RequestMapping("/api/products")
+@RestController
 public class ProductController {
 
-    private final ProductService productService;
+    @Autowired
+    private ProductRepository repository;
 
     @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
+    private ProductService productService;
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+
+//    @Autowired
+//    public ProductController(ProductService productService) {
+//        this.productService = productService;
+//    }
 
     @GetMapping("/get/{id}")
-    @PreAuthorize("hasRole('USER')")
-    ProductResponseDto getProductById(@PathVariable("id") Integer id) {
-        return this.productService.getProductById(id);
+    Product getProductById(@PathVariable("id") Integer id) {
+//        return productService.getProductBy    Id(id);
+        return repository.findProductById(id);
+    }
+
+    @GetMapping("/get/all")
+    void getAll(){
+        logger.info("Run controller find all");
+        System.out.print("Run controller find all");
+//        return repository.findAll();
     }
 
     @GetMapping("/get/{name}")
@@ -36,7 +54,7 @@ public class ProductController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     ProductResponseDto createProduct(@Valid @RequestBody ProductUpdateDto dto) {
-        return this.productService.createProduct(dto);
+        return productService.createProduct(dto);
     }
 
     @PutMapping("/update/{id}")

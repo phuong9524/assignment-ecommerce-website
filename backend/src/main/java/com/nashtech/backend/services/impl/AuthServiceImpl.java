@@ -9,7 +9,6 @@ import com.nashtech.backend.dto.request.LoginRequestDto;
 import com.nashtech.backend.dto.request.SignupRequestDto;
 import com.nashtech.backend.dto.response.JwtResponseDto;
 import com.nashtech.backend.dto.response.MessageResponseDto;
-import com.nashtech.backend.security.JwtUtils;
 import com.nashtech.backend.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -58,7 +57,7 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());

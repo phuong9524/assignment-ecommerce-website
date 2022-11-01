@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,5 +28,15 @@ public class Cart extends Auditable{
     private User user;
 
     @OneToMany
-    private Set<CartItem> cartItem;
+    private List<CartItem> cartItem = new ArrayList<>();
+
+    @Transient
+    public Double getTotalOrderPrice() {
+        List<CartItem> cartItems = getCartItem();
+        for (CartItem cartItem1: cartItems) {
+            total += cartItem1.getTotalPrice();
+        }
+        return total;
+    }
+
 }
