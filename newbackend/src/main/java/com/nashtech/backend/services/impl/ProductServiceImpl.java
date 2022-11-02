@@ -37,11 +37,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDto getProductById(Integer id) {
         Optional<Product> productOptional = this.productRepository.findById(id);
-        if (productOptional.isPresent()) {
-            Product product = productOptional.get();
-            return productMapper.mapEntityToDto(product);
+        if (productOptional.isEmpty()) {
+            throw new ProductNotFoundException();
         }
-        throw new ProductNotFoundException();
+        Product product = productOptional.get();
+        return productMapper.mapEntityToDto(product);
     }
 
     @Override
@@ -49,11 +49,9 @@ public class ProductServiceImpl implements ProductService {
         List<ProductCategory> productCategoryOptional = this.productCategoryRepository.findByName(categoryName);
         if (productCategoryOptional.isEmpty()) {
             throw new ProductCategoryNotFoundException();
-        } else {
-            List<Product> product = productRepository.ShowAllProductByCategory(categoryName);
-            return productMapper.mapListEntityToListDto(product);
         }
-
+        List<Product> product = productRepository.ShowAllProductByCategory(categoryName);
+        return productMapper.mapListEntityToListDto(product);
     }
 
     @Override

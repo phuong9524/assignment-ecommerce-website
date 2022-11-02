@@ -12,6 +12,7 @@ import com.nashtech.backend.dto.response.MessageResponseDto;
 import com.nashtech.backend.security.JwtUtils;
 import com.nashtech.backend.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -121,7 +122,7 @@ public class AuthServiceImpl implements AuthService {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponseDto("User registered successfully"));
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
 
     }
 }

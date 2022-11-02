@@ -48,7 +48,6 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public ResponseEntity<?> addToCart(AddToCartDto addToCartDto, JwtResponseDto jwtResponseDto) {
-        jwtUtils.validateJwtToken(jwtResponseDto.getAccessToken());
         String username = jwtUtils.getUserNameFromJwtToken(jwtResponseDto.getAccessToken());
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isEmpty()) {
@@ -58,12 +57,11 @@ public class CartServiceImpl implements CartService {
         Product product = productRepository.findProductById(addToCartDto.getProductId());
         Cart cart = new Cart(product, addToCartDto.getQuantity(), user);
         cartRepository.save(cart);
-        return ResponseEntity.ok(new MessageResponseDto("Add new item success"));
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
     @Override
     public ResponseEntity<CartDto> listCartItems(JwtResponseDto jwtResponseDto) {
-        jwtUtils.validateJwtToken(jwtResponseDto.getAccessToken());
         String username = jwtUtils.getUserNameFromJwtToken(jwtResponseDto.getAccessToken());
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isEmpty()) {
@@ -86,7 +84,6 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public ResponseEntity<?> updateCartItem(AddToCartDto addToCartDto, JwtResponseDto jwtResponseDto) {
-        jwtUtils.validateJwtToken(jwtResponseDto.getAccessToken());
         String username = jwtUtils.getUserNameFromJwtToken(jwtResponseDto.getAccessToken());
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isEmpty()) {
@@ -102,15 +99,14 @@ public class CartServiceImpl implements CartService {
         cart.setQuantity(addToCartDto.getQuantity());
         cart.setCreationDate(new Date());
         cartRepository.save(cart);
-        return ResponseEntity.ok(new MessageResponseDto("update success"));
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
     @Override
     public ResponseEntity<?> deleteCartItem(int id, JwtResponseDto jwtResponseDto) throws CartItemNotExistException {
-        jwtUtils.validateJwtToken(jwtResponseDto.getAccessToken());
         if (!cartRepository.existsById(id))
             throw new CartItemNotExistException("Cart id is invalid : " + id);
         cartRepository.deleteById(id);
-        return ResponseEntity.ok(new MessageResponseDto("delete success"));
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 }

@@ -4,7 +4,7 @@ import lombok.Builder;
 
 import java.util.List;
 
-@Builder
+
 public class JwtResponseDto {
     private String token;
     private String type = "Bearer";
@@ -13,6 +13,7 @@ public class JwtResponseDto {
     private String email;
     private List<String> roles;
 
+    @Builder
     public JwtResponseDto(String accessToken, Long id, String username, String email, List<String> roles) {
         this.token = accessToken;
         this.id = id;
