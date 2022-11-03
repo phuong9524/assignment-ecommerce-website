@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryResponseDto updateCategory(Integer id, CategoryRequestDto categoryRequestDto) {
         Optional<ProductCategory> productCategoryOptional = productCategoryRepository.findById(id);
         if (productCategoryOptional.isEmpty()) {
-            throw new ProductCategoryNotFoundException();
+            throw new ProductCategoryNotFoundException("Product category not found");
         }
         ProductCategory productCategory = productCategoryOptional.get();
         categoryMapper.mapDtoToEntity(categoryRequestDto);

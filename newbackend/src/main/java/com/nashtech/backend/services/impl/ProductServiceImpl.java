@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponseDto getProductById(Integer id) {
         Optional<Product> productOptional = this.productRepository.findById(id);
         if (productOptional.isEmpty()) {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException("Product not found");
         }
         Product product = productOptional.get();
         return productMapper.mapEntityToDto(product);
@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductResponseDto> getAllProductByCategory(String categoryName) {
         List<ProductCategory> productCategoryOptional = this.productCategoryRepository.findByName(categoryName);
         if (productCategoryOptional.isEmpty()) {
-            throw new ProductCategoryNotFoundException();
+            throw new ProductCategoryNotFoundException("Product category not found");
         }
         List<Product> product = productRepository.ShowAllProductByCategory(categoryName);
         return productMapper.mapListEntityToListDto(product);
