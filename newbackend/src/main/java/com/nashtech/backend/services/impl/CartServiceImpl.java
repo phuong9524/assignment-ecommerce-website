@@ -10,12 +10,10 @@ import com.nashtech.backend.dto.request.AddToCartDto;
 import com.nashtech.backend.dto.response.CartDto;
 import com.nashtech.backend.dto.response.CartItemDto;
 import com.nashtech.backend.dto.response.JwtResponseDto;
-import com.nashtech.backend.dto.response.MessageResponseDto;
 import com.nashtech.backend.exceptions.CartItemNotExistException;
 import com.nashtech.backend.exceptions.CartNotFoundException;
 import com.nashtech.backend.exceptions.UsernameNotFoundException;
 import com.nashtech.backend.mappers.CartMapper;
-import com.nashtech.backend.security.JwtUtils;
 import com.nashtech.backend.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,22 +31,20 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
     private final CartMapper cartMapper;
-    private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
 
     @Autowired
-    public CartServiceImpl(CartRepository cartRepository, ProductRepository productRepository, CartMapper cartMapper, JwtUtils jwtUtils, UserRepository userRepository) {
+    public CartServiceImpl(CartRepository cartRepository, ProductRepository productRepository, CartMapper cartMapper, UserRepository userRepository) {
         this.cartRepository = cartRepository;
         this.cartMapper = cartMapper;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
-        this.jwtUtils = jwtUtils;
     }
 
 
     @Override
     public ResponseEntity<?> addToCart(AddToCartDto addToCartDto, JwtResponseDto jwtResponseDto) {
-        String username = jwtUtils.getUserNameFromJwtToken(jwtResponseDto.getAccessToken());
+        String username = jwtResponseDto.getUsername();
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isEmpty()) {
             throw new UsernameNotFoundException("cant find username");
@@ -57,12 +53,12 @@ public class CartServiceImpl implements CartService {
         Product product = productRepository.findProductById(addToCartDto.getProductId());
         Cart cart = new Cart(product, addToCartDto.getQuantity(), user);
         cartRepository.save(cart);
-        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<CartDto> listCartItems(JwtResponseDto jwtResponseDto) {
-        String username = jwtUtils.getUserNameFromJwtToken(jwtResponseDto.getAccessToken());
+        String username = jwtResponseDto.getUsername();
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isEmpty()) {
             throw new UsernameNotFoundException("cant find username");
@@ -83,14 +79,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public ResponseEntity<?> updateCartItem(AddToCartDto addToCartDto, JwtResponseDto jwtResponseDto) {
-        String username = jwtUtils.getUserNameFromJwtToken(jwtResponseDto.getAccessToken());
-        Optional<User> userOptional = userRepository.findByUsername(username);
-        if (userOptional.isEmpty()) {
-            throw new UsernameNotFoundException("cant find username");
-        }
-        User user = userOptional.get();
-        Product product = productRepository.findProductById(addToCartDto.getProductId());
+    public ResponseEntity<?> updateCartItem(AddToCartDto addToCartDto) {
+
         Optional<Cart> cartOptional = cartRepository.findById(addToCartDto.getId());
         if (cartOptional.isEmpty()) {
             throw new CartNotFoundException();
@@ -103,7 +93,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public ResponseEntity<?> deleteCartItem(int id, JwtResponseDto jwtResponseDto) throws CartItemNotExistException {
+    public ResponseEntity<?> deleteCartItem(int id) throws CartItemNotExistException {
         if (!cartRepository.existsById(id))
             throw new CartItemNotExistException("Cart id is invalid : " + id);
         cartRepository.deleteById(id);

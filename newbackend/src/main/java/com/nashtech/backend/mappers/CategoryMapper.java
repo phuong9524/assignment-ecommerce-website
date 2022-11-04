@@ -22,6 +22,7 @@ public class CategoryMapper {
     public List<CategoryResponseDto> mapListEntityToListDto(List<ProductCategory> productCategory) {
         return productCategory.stream()
                 .map(productCategory1 -> new CategoryResponseDto(
+                        productCategory1.getId(),
                         productCategory1.getCategoryName(),
                         productCategory1.getCategoryDesc(),
                         productCategory1.getCreationDate().toString(),

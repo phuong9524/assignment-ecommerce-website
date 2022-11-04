@@ -3,6 +3,7 @@ package com.nashtech.backend.dto.request;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nashtech.backend.data.entities.ProductCategory;
+import com.nashtech.backend.dto.response.CategoryResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ public class ProductUpdateDto {
     @NotBlank(message = "Product image is required")
     private String image;
 
-    private ProductCategory productCategory;
+    private Integer categoryId;
 
     @JsonCreator
     public ProductUpdateDto(
@@ -33,12 +34,12 @@ public class ProductUpdateDto {
             @JsonProperty("desc") String desc,
             @JsonProperty("price") Double price,
             @JsonProperty("image") String image,
-            @JsonProperty("productCategory") ProductCategory productCategory) {
+            @JsonProperty("productCategory") Integer categoryId) {
         this.name = name;
         this.desc = desc;
         this.price = price;
         this.image = image;
-        this.productCategory = productCategory;
+        this.categoryId = categoryId;
     }
 
 

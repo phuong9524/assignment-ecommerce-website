@@ -33,12 +33,12 @@ public class CartController {
     }
 
     @PutMapping("/{cartItemId}")
-    public ResponseEntity<?> updateCartItem(@RequestBody @Valid AddToCartDto addToCartDto, JwtResponseDto jwtResponseDto, @PathVariable String cartItemId) {
-        return cartService.updateCartItem(addToCartDto, jwtResponseDto);
+    public ResponseEntity<?> updateCartItem(@RequestBody @Valid AddToCartDto addToCartDto, @PathVariable String cartItemId) {
+        return cartService.updateCartItem(addToCartDto);
     }
 
     @DeleteMapping("/{cartItemId}")
-    public ResponseEntity<?> deleteCartItem(@PathVariable("cartItemId") int itemId, JwtResponseDto jwtResponseDto) {
-        return cartService.deleteCartItem(itemId, jwtResponseDto);
+    public ResponseEntity<?> deleteCartItem(@PathVariable("cartItemId") int itemId) {
+        return cartService.deleteCartItem(itemId);
     }
 }

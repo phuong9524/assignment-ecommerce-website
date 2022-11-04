@@ -2,6 +2,7 @@ package com.nashtech.backend.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nashtech.backend.data.entities.ProductCategory;
 import lombok.Builder;
 
 public class ProductResponseDto extends ProductInfoDto {
@@ -16,12 +17,12 @@ public class ProductResponseDto extends ProductInfoDto {
             @JsonProperty("desc") final String desc,
             @JsonProperty("price") final Double price,
             @JsonProperty("image") final String image,
+            @JsonProperty("category") final ProductCategory productCategory,
             @JsonProperty("creationDate") final String creationDate,
             @JsonProperty("lastModifiedDate") final String lastModifiedDate) {
-        super(id, name, desc, price, image);
+        super(id, name, desc, price, image, productCategory);
         this.creationDate = creationDate;
         this.lastModifiedDate = lastModifiedDate;
     }
-
 
 }

@@ -11,6 +11,8 @@ import com.nashtech.backend.exceptions.ProductNotFoundException;
 import com.nashtech.backend.mappers.ProductMapper;
 import com.nashtech.backend.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,18 +47,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getAllProductByCategory(String categoryName) {
+    public List<ProductResponseDto> getAllProductByCategory(String categoryName, int pageNumber, int pageSize) {
+        Pageable pageWithNumberAndSize = PageRequest.of(pageNumber,pageSize);
         List<ProductCategory> productCategoryOptional = this.productCategoryRepository.findByName(categoryName);
         if (productCategoryOptional.isEmpty()) {
             throw new ProductCategoryNotFoundException("Product category not found");
         }
-        List<Product> product = productRepository.ShowAllProductByCategory(categoryName);
+        List<Product> product = productRepository.ShowAllProductByCategory(categoryName, pageWithNumberAndSize);
         return productMapper.mapListEntityToListDto(product);
     }
 
     @Override
     public ProductResponseDto createProduct(ProductUpdateDto dto) {
-        Product product = productMapper.mapDtoToEntity(dto);
+        Optional<ProductCategory> productCategoryOptional = productCategoryRepository.findById(dto.getCategoryId());
+        if (productCategoryOptional.isEmpty()) {
+            throw  new ProductCategoryNotFoundException("Product category not found");
+        }
+        ProductCategory productCategory = productCategoryOptional.get();
+        Product product = productMapper.mapDtoToEntity(dto, productCategory);
         Product saveProduct = productRepository.save(product);
         return productMapper.mapEntityToDto(saveProduct);
     }
@@ -68,7 +76,12 @@ public class ProductServiceImpl implements ProductService {
             throw new ProductNotFoundException();
         }
         Product product = productOptional.get();
-        productMapper.mapDtoToEntity(dto);
+        Optional<ProductCategory> productCategoryOptional = productCategoryRepository.findById(dto.getCategoryId());
+        if (productCategoryOptional.isEmpty()) {
+            throw  new ProductCategoryNotFoundException("Product category not found");
+        }
+        ProductCategory productCategory = productCategoryOptional.get();
+        productMapper.mapDtoToEntity(dto, productCategory);
         product = productRepository.save(product);
         return productMapper.mapEntityToDto(product);
     }

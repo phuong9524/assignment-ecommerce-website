@@ -9,6 +9,8 @@ import lombok.Getter;
 
 public class CategoryResponseDto extends AuditDto{
 
+    private final Integer id;
+
     private final String categoryName;
 
     private final String categoryDesc;
@@ -16,11 +18,13 @@ public class CategoryResponseDto extends AuditDto{
     @Builder()
     @JsonCreator
     public CategoryResponseDto(
+            @JsonProperty("id") Integer id,
             @JsonProperty("name") String categoryName,
             @JsonProperty("desc") String categoryDesc,
             @JsonProperty("creationDate") String creationDate,
             @JsonProperty("lastModifiedDate") String lastModifiedDate) {
         super(creationDate, lastModifiedDate);
+        this.id = id;
         this.categoryName = categoryName;
         this.categoryDesc = categoryDesc;
     }

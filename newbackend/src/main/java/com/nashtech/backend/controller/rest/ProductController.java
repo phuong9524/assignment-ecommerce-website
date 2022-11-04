@@ -5,6 +5,7 @@ import com.nashtech.backend.dto.request.ProductUpdateDto;
 import com.nashtech.backend.dto.response.ProductResponseDto;
 import com.nashtech.backend.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +29,8 @@ public class ProductController {
     }
 
     @GetMapping("/get")
-    List<ProductResponseDto> getAllProductByCategoryName(@RequestParam(value = "name") String name) {
-        return this.productService.getAllProductByCategory(name);
+    List<ProductResponseDto> getAllProductByCategoryName(@RequestParam String name, @RequestParam int pageNumber,@RequestParam int pageSize) {
+        return this.productService.getAllProductByCategory(name, pageNumber, pageSize);
     }
 
     @PostMapping

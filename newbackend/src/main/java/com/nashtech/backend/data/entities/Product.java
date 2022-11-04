@@ -1,5 +1,6 @@
 package com.nashtech.backend.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class Product extends Auditable{
 
     private String image;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private ProductCategory productCategory;

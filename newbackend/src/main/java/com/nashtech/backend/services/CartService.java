@@ -13,8 +13,8 @@ public interface CartService {
 
     ResponseEntity<?> listCartItems(JwtResponseDto jwtResponseDto);
 
-    ResponseEntity<?> updateCartItem(AddToCartDto cartDto, JwtResponseDto jwtResponseDto);
+    ResponseEntity<?> updateCartItem(AddToCartDto cartDto);
 
-    ResponseEntity<?> deleteCartItem(int id, JwtResponseDto jwtResponseDto);
+    ResponseEntity<?> deleteCartItem(int id);
 
 }

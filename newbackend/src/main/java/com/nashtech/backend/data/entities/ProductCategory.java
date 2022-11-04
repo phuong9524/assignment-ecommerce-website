@@ -1,5 +1,6 @@
 package com.nashtech.backend.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class ProductCategory extends Auditable{
     @Column(name = "category_desc")
     private String categoryDesc;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "productCategory")
     private Set<Product> products;
 
