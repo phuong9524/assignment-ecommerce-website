@@ -1,7 +1,7 @@
 package com.nashtech.backend.mappers;
 
 import com.nashtech.backend.data.entities.Cart;
-import com.nashtech.backend.dto.response.CartItemDto;
+import com.nashtech.backend.dto.cart.CartItemDto;
 import org.springframework.stereotype.Component;
 
 @Component

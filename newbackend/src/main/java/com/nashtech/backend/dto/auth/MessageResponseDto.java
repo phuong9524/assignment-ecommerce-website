@@ -1,6 +1,7 @@
-package com.nashtech.backend.dto.response;
+package com.nashtech.backend.dto.auth;
 
 public class MessageResponseDto {
+
     private String message;
 
     public MessageResponseDto(String message) {

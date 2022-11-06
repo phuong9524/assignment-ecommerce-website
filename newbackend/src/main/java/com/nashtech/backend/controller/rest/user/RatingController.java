@@ -1,9 +1,9 @@
-package com.nashtech.backend.controller.rest;
+package com.nashtech.backend.controller.rest.user;
 
-import com.nashtech.backend.dto.request.ProductRatingDto;
-import com.nashtech.backend.dto.response.RatingResponseDto;
+import com.nashtech.backend.dto.rating.ProductRatingRequestDto;
 import com.nashtech.backend.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +23,7 @@ public class RatingController {
     }
 
     @PostMapping
-    RatingResponseDto ratingProduct(@Valid @RequestBody ProductRatingDto dto) {
+    ResponseEntity<?> ratingProduct(@Valid @RequestBody ProductRatingRequestDto dto) {
         return this.ratingService.addRating(dto);
     }
 }

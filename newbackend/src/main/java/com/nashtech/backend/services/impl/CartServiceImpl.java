@@ -6,10 +6,10 @@ import com.nashtech.backend.data.entities.User;
 import com.nashtech.backend.data.repositories.CartRepository;
 import com.nashtech.backend.data.repositories.ProductRepository;
 import com.nashtech.backend.data.repositories.UserRepository;
-import com.nashtech.backend.dto.request.AddToCartDto;
-import com.nashtech.backend.dto.response.CartDto;
-import com.nashtech.backend.dto.response.CartItemDto;
-import com.nashtech.backend.dto.response.JwtResponseDto;
+import com.nashtech.backend.dto.cart.AddToCartDto;
+import com.nashtech.backend.dto.cart.CartDto;
+import com.nashtech.backend.dto.cart.CartItemDto;
+import com.nashtech.backend.dto.auth.JwtResponseDto;
 import com.nashtech.backend.exceptions.CartItemNotExistException;
 import com.nashtech.backend.exceptions.CartNotFoundException;
 import com.nashtech.backend.exceptions.UsernameNotFoundException;
@@ -74,7 +74,9 @@ public class CartServiceImpl implements CartService {
         for (CartItemDto cartItemDto: cartItems) {
             totalCost += (cartItemDto.getProduct().getPrice() * cartItemDto.getQuantity());
         }
-        CartDto cartDto = new CartDto(cartItems,totalCost);
+        CartDto cartDto = CartDto.builder()
+                .cartItems(cartItems)
+                .totalCost(totalCost).build();
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
 

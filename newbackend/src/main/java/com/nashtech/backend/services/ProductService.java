@@ -1,21 +1,24 @@
 package com.nashtech.backend.services;
 
-import com.nashtech.backend.dto.request.ProductUpdateDto;
-import com.nashtech.backend.dto.response.ProductResponseDto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.nashtech.backend.dto.product.ProductRequestDto;
+import com.nashtech.backend.dto.product.GetProductByIdDto;
+import com.nashtech.backend.dto.product.ShowAllProductForUserDto;
+import com.nashtech.backend.dto.product.ShowLatestProductsDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface ProductService {
 
-    ProductResponseDto getProductById(Integer id);
+    GetProductByIdDto getProductById(Integer id);
 
-    List<ProductResponseDto> getAllProductByCategory(String name, int pageNumber, int pageSize);
+    List<ShowLatestProductsDto> showLatestProducts();
 
-    ProductResponseDto createProduct(ProductUpdateDto dto);
+    List<ShowAllProductForUserDto> getAllProduct(int pageNumber);
 
-    ProductResponseDto updateProduct(Integer id, ProductUpdateDto dto);
+    ResponseEntity<?> createProduct(ProductRequestDto dto);
+
+    ResponseEntity<?> updateProduct(Integer id, ProductRequestDto dto);
 
     void deleteProduct(Integer id);
 

@@ -9,7 +9,10 @@ import java.util.List;
 
 @Repository
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Integer> {
-    @Query(value = "select(p.*) from product_category p where p.category_name = ?1", nativeQuery = true)
-    List<ProductCategory> findByName(String name);
+
+    ProductCategory getProductCategoryByCategoryName(String name);
+
+    @Query(value = "SELECT category_name FROM product_category", nativeQuery = true)
+    List<ProductCategory> getAllCategoryName();
 
 }

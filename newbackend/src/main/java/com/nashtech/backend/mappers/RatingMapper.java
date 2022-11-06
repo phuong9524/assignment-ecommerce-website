@@ -1,28 +1,35 @@
 package com.nashtech.backend.mappers;
 
+import com.nashtech.backend.data.entities.Product;
 import com.nashtech.backend.data.entities.Rating;
-import com.nashtech.backend.dto.request.ProductRatingDto;
-import com.nashtech.backend.dto.response.RatingResponseDto;
+import com.nashtech.backend.data.entities.User;
+import com.nashtech.backend.dto.rating.FullRatingInfoDto;
+import com.nashtech.backend.dto.rating.ProductRatingRequestDto;
+import com.nashtech.backend.dto.rating.ShortRatingInfoDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RatingMapper {
-    public RatingResponseDto mapEntityToDto(Rating rating) {
-        return RatingResponseDto.builder()
+    public FullRatingInfoDto mapEntityToDto(Rating rating) {
+        return FullRatingInfoDto.builder()
                 .rate(rating.getRate())
                 .comment(rating.getComment())
-                .product(rating.getProduct())
                 .user(rating.getUser())
                 .build();
     }
 
-    public Rating mapDtoToEntity(ProductRatingDto productRatingDto) {
+    public Rating mapDtoToEntity(ProductRatingRequestDto productRatingDto, Product product, User user) {
         return Rating.builder()
                 .rate(productRatingDto.getRate())
                 .comment(productRatingDto.getComment())
-                .product(productRatingDto.getProduct())
-                .user(productRatingDto.getUser())
+                .product(product)
+                .user(user)
                 .build();
+    }
+
+    public ShortRatingInfoDto mapEntityToShortRatingDto(Rating rating) {
+        return ShortRatingInfoDto.builder()
+                .rate(rating.getRate()).build();
     }
 }
 

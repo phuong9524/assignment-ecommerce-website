@@ -1,17 +1,21 @@
 package com.nashtech.backend.services;
 
-import com.nashtech.backend.dto.request.CategoryRequestDto;
-import com.nashtech.backend.dto.response.CategoryResponseDto;
+import com.nashtech.backend.dto.category.FullCategoryInfoDto;
+import com.nashtech.backend.dto.category.CategoryRequestDto;
+import com.nashtech.backend.dto.category.ListCategoryNameDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    List<CategoryResponseDto> getAllCategory();
+    List<FullCategoryInfoDto> getAllCategoryForAdmin();
 
-    CategoryResponseDto createCategory(CategoryRequestDto categoryRequestDto);
+    List<ListCategoryNameDto> getListOfCategoryName();
 
-    CategoryResponseDto updateCategory(Integer id, CategoryRequestDto categoryRequestDto);
+    ResponseEntity<?> createCategory(CategoryRequestDto categoryRequestDto);
+
+    ResponseEntity<?> updateCategory(Integer id, CategoryRequestDto categoryRequestDto);
 
     void deleteCategory(Integer id);
 }

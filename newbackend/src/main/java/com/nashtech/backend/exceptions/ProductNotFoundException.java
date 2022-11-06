@@ -1,6 +1,7 @@
 package com.nashtech.backend.exceptions;
 
 public class ProductNotFoundException extends RuntimeException{
+
     private static final Integer serialVersionUID = 1;
 
     public ProductNotFoundException() {

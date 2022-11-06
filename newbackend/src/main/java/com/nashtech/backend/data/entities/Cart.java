@@ -1,7 +1,6 @@
 package com.nashtech.backend.data.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nashtech.backend.dto.response.CartDto;
 import lombok.*;
 
 import javax.persistence.*;

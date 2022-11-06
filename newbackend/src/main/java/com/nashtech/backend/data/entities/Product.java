@@ -30,12 +30,13 @@ public class Product extends Auditable{
 
     private String image;
 
+
     @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private ProductCategory productCategory;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "product")
     private List<Rating> rating = new ArrayList<>();
 
 }

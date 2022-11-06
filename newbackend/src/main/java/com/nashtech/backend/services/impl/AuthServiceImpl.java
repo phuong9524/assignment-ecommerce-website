@@ -5,10 +5,10 @@ import com.nashtech.backend.data.entities.Role;
 import com.nashtech.backend.data.entities.User;
 import com.nashtech.backend.data.repositories.RoleRepository;
 import com.nashtech.backend.data.repositories.UserRepository;
-import com.nashtech.backend.dto.request.LoginRequestDto;
-import com.nashtech.backend.dto.request.SignUpRequestDto;
-import com.nashtech.backend.dto.response.JwtResponseDto;
-import com.nashtech.backend.dto.response.MessageResponseDto;
+import com.nashtech.backend.dto.auth.LoginRequestDto;
+import com.nashtech.backend.dto.auth.SignUpRequestDto;
+import com.nashtech.backend.dto.auth.JwtResponseDto;
+import com.nashtech.backend.dto.auth.MessageResponseDto;
 import com.nashtech.backend.security.JwtUtils;
 import com.nashtech.backend.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,11 +67,15 @@ public class AuthServiceImpl implements AuthService {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponseDto(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles));
+        return ResponseEntity.ok(
+                JwtResponseDto.builder()
+                        .token(jwt)
+                        .id(userDetails.getId())
+                        .username(userDetails.getUsername())
+                        .email(userDetails.getEmail())
+                        .roles(roles)
+                        .build()
+        );
     }
 
     @Override
@@ -91,38 +93,22 @@ public class AuthServiceImpl implements AuthService {
 
         }
 
-        User user = new User(signupRequestDto.getUsername(),
-                signupRequestDto.getEmail(),
-                passwordEncoder.encode(signupRequestDto.getPassword()));
+        User user = User.builder()
+                .firstName(signupRequestDto.getFirstname())
+                .lastName(signupRequestDto.getLastName())
+                .username(signupRequestDto.getUsername())
+                .email(signupRequestDto.getEmail())
+                .password(passwordEncoder.encode(signupRequestDto.getPassword()))
+                .telephone(signupRequestDto.getTelephone())
+                .build();
+//                new User(signupRequestDto.getUsername(),
+//                signupRequestDto.getEmail(),
+//                passwordEncoder.encode(signupRequestDto.getPassword()));
+//
 
-        Set<String> strRoles = signupRequestDto.getRole();
-        Set<Role> roles = new HashSet<>();
-
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(AccountRole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(AccountRole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(adminRole);
-                        break;
-
-                    default:
-                        Role userRole = roleRepository.findByName(AccountRole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        roles.add(userRole);
-                }
-            });
-        }
-
-        user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok(HttpStatus.CREATED);
 
     }
 }

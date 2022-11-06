@@ -1,12 +1,11 @@
-package com.nashtech.backend.dto.request;
+package com.nashtech.backend.dto.auth;
 
 import lombok.Builder;
-import lombok.Data;
-
+import lombok.Getter;
 import javax.validation.constraints.NotBlank;
-import java.util.Set;
 
-@Data
+
+@Getter
 @Builder
 public class SignUpRequestDto {
 
@@ -24,6 +23,5 @@ public class SignUpRequestDto {
 
     private Integer telephone;
 
-    private Set<String> role;
 }
 

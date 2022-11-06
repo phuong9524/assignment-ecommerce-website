@@ -1,10 +1,12 @@
-package com.nashtech.backend.dto.request;
+package com.nashtech.backend.dto.auth;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 
-@Data
+@Builder
+@Getter
 public class LoginRequestDto {
 
     @NotBlank

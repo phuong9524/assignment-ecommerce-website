@@ -1,11 +1,11 @@
 package com.nashtech.backend.services;
 
-import com.nashtech.backend.dto.request.ProductRatingDto;
-import com.nashtech.backend.dto.response.RatingResponseDto;
+import com.nashtech.backend.dto.rating.ProductRatingRequestDto;
+import org.springframework.http.ResponseEntity;
 
 public interface RatingService {
 
-    RatingResponseDto addRating(ProductRatingDto productRatingDto);
+    ResponseEntity<?> addRating(ProductRatingRequestDto productRatingDto);
 
 }
 

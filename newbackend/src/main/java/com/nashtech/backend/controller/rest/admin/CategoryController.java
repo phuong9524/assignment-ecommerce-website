@@ -1,10 +1,12 @@
-package com.nashtech.backend.controller.rest;
+package com.nashtech.backend.controller.rest.admin;
 
-import com.nashtech.backend.dto.request.CategoryRequestDto;
-import com.nashtech.backend.dto.response.CategoryResponseDto;
+import com.nashtech.backend.dto.category.FullCategoryInfoDto;
+import com.nashtech.backend.dto.category.CategoryRequestDto;
+import com.nashtech.backend.dto.category.ListCategoryNameDto;
 import com.nashtech.backend.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,19 +22,23 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    @GetMapping("/admin")
+    List<FullCategoryInfoDto> getAllCategoryForAdmin() {
+        return categoryService.getAllCategoryForAdmin();
+    }
+
     @GetMapping
-    List<CategoryResponseDto> getAllCategory() {
-        return categoryService.getAllCategory();
+    List<ListCategoryNameDto> getListOfCategoryName() {
+        return categoryService.getListOfCategoryName();
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    CategoryResponseDto createCategory(@RequestBody CategoryRequestDto categoryRequestDto) {
+    ResponseEntity<?> createCategory(@RequestBody CategoryRequestDto categoryRequestDto) {
         return categoryService.createCategory(categoryRequestDto);
     }
 
     @PutMapping("/{id}")
-    CategoryResponseDto updateCategory(@PathVariable("id") Integer id,@RequestBody CategoryRequestDto categoryRequestDto) {
+    ResponseEntity<?> updateCategory(@PathVariable("id") Integer id, @RequestBody CategoryRequestDto categoryRequestDto) {
         return categoryService.updateCategory(id, categoryRequestDto);
     }
 

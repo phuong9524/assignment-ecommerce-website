@@ -1,7 +1,7 @@
-package com.nashtech.backend.controller.rest;
+package com.nashtech.backend.controller.rest.user;
 
-import com.nashtech.backend.dto.request.LoginRequestDto;
-import com.nashtech.backend.dto.request.SignUpRequestDto;
+import com.nashtech.backend.dto.auth.LoginRequestDto;
+import com.nashtech.backend.dto.auth.SignUpRequestDto;
 import com.nashtech.backend.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,8 @@
-package com.nashtech.backend.controller.rest;
+package com.nashtech.backend.controller.rest.user;
 
-import com.nashtech.backend.dto.request.AddToCartDto;
-import com.nashtech.backend.dto.response.JwtResponseDto;
+import com.nashtech.backend.dto.cart.AddToCartDto;
+import com.nashtech.backend.dto.auth.JwtResponseDto;
 import com.nashtech.backend.services.CartService;
-import com.nashtech.backend.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

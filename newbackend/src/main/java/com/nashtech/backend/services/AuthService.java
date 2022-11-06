@@ -1,7 +1,7 @@
 package com.nashtech.backend.services;
 
-import com.nashtech.backend.dto.request.LoginRequestDto;
-import com.nashtech.backend.dto.request.SignUpRequestDto;
+import com.nashtech.backend.dto.auth.LoginRequestDto;
+import com.nashtech.backend.dto.auth.SignUpRequestDto;
 import org.springframework.http.ResponseEntity;
 
 public interface AuthService {

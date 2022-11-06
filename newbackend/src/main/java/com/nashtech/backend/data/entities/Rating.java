@@ -1,9 +1,6 @@
 package com.nashtech.backend.data.entities;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "rating")
 
 public class Rating {
@@ -24,23 +22,11 @@ public class Rating {
     private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "username", referencedColumnName = "username")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
-    public Rating (
-            Integer id,
-            Double rate,
-            String comment,
-            User user,
-            Product product) {
-        this.id = id;
-        this.rate = rate;
-        this.comment = comment;
-        this.user = user;
-        this.product = product;
-    }
 }

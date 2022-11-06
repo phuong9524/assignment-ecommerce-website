@@ -2,12 +2,15 @@ package com.nashtech.backend.services.impl;
 
 import com.nashtech.backend.data.entities.ProductCategory;
 import com.nashtech.backend.data.repositories.ProductCategoryRepository;
-import com.nashtech.backend.dto.request.CategoryRequestDto;
-import com.nashtech.backend.dto.response.CategoryResponseDto;
+import com.nashtech.backend.dto.category.FullCategoryInfoDto;
+import com.nashtech.backend.dto.category.CategoryRequestDto;
+import com.nashtech.backend.dto.category.ListCategoryNameDto;
 import com.nashtech.backend.exceptions.ProductCategoryNotFoundException;
 import com.nashtech.backend.mappers.CategoryMapper;
 import com.nashtech.backend.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,28 +29,37 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryResponseDto> getAllCategory() {
+    public List<FullCategoryInfoDto> getAllCategoryForAdmin() {
         List<ProductCategory> productCategories = productCategoryRepository.findAll();
-        return categoryMapper.mapListEntityToListDto(productCategories);
+        return categoryMapper.mapEntityToCategoryAdminDto(productCategories);
     }
 
     @Override
-    public CategoryResponseDto createCategory(CategoryRequestDto categoryRequestDto) {
+    public List<ListCategoryNameDto> getListOfCategoryName() {
+        List<ProductCategory> productCategory = productCategoryRepository.getAllCategoryName();
+        if (productCategory.isEmpty()) {
+            throw new ProductCategoryNotFoundException("Cant find category");
+        }
+        return categoryMapper.mapEntityToListCategoryNameDto(productCategory);
+    }
+
+    @Override
+    public ResponseEntity<?> createCategory(CategoryRequestDto categoryRequestDto) {
         ProductCategory productCategory = categoryMapper.mapDtoToEntity(categoryRequestDto);
         ProductCategory saveProductCategory = productCategoryRepository.save(productCategory);
-        return categoryMapper.mapEntityToDto(saveProductCategory);
+        return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @Override
-    public CategoryResponseDto updateCategory(Integer id, CategoryRequestDto categoryRequestDto) {
+    public ResponseEntity<?> updateCategory(Integer id, CategoryRequestDto categoryRequestDto) {
         Optional<ProductCategory> productCategoryOptional = productCategoryRepository.findById(id);
         if (productCategoryOptional.isEmpty()) {
             throw new ProductCategoryNotFoundException("Product category not found");
         }
         ProductCategory productCategory = productCategoryOptional.get();
         categoryMapper.mapDtoToEntity(categoryRequestDto);
-        productCategory = productCategoryRepository.save(productCategory);
-        return categoryMapper.mapEntityToDto(productCategory);
+        productCategoryRepository.save(productCategory);
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
     @Override
