@@ -6,12 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 
 @Getter
-@Builder
 public class SignUpRequestDto {
-
-    private String lastName;
-
-    private String firstname;
 
     @NotBlank
     private String username;
@@ -20,8 +15,6 @@ public class SignUpRequestDto {
     private String email;
 
     private String password;
-
-    private Integer telephone;
 
 }
 

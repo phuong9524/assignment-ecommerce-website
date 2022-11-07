@@ -94,17 +94,10 @@ public class AuthServiceImpl implements AuthService {
         }
 
         User user = User.builder()
-                .firstName(signupRequestDto.getFirstname())
-                .lastName(signupRequestDto.getLastName())
                 .username(signupRequestDto.getUsername())
                 .email(signupRequestDto.getEmail())
                 .password(passwordEncoder.encode(signupRequestDto.getPassword()))
-                .telephone(signupRequestDto.getTelephone())
                 .build();
-//                new User(signupRequestDto.getUsername(),
-//                signupRequestDto.getEmail(),
-//                passwordEncoder.encode(signupRequestDto.getPassword()));
-//
 
         userRepository.save(user);
 
