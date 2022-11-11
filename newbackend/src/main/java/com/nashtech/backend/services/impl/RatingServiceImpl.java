@@ -8,6 +8,7 @@ import com.nashtech.backend.data.repositories.RatingRepository;
 import com.nashtech.backend.data.repositories.UserRepository;
 import com.nashtech.backend.dto.rating.ProductRatingRequestDto;
 import com.nashtech.backend.exceptions.ProductNotFoundException;
+import com.nashtech.backend.exceptions.UsernameNotFoundException;
 import com.nashtech.backend.mappers.RatingMapper;
 import com.nashtech.backend.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class RatingServiceImpl implements RatingService {
 
         Optional<User> userOptional = userRepository.findByUsername(productRatingDto.getUsername());
         if (userOptional.isEmpty()) {
-            throw new ProductNotFoundException("product not found");
+            throw new UsernameNotFoundException("user not found");
         }
         User user = userOptional.get();
 
@@ -52,4 +53,5 @@ public class RatingServiceImpl implements RatingService {
         ratingRepository.save(rating);
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
+
 }

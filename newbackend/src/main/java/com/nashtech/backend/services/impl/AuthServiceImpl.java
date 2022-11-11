@@ -22,7 +22,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -93,10 +96,18 @@ public class AuthServiceImpl implements AuthService {
 
         }
 
+        Optional<Role> roleOptional = roleRepository.findByName(AccountRole.ROLE_USER);
+
+        Role role = roleOptional.get();
+
+        Set<Role> s = new HashSet<>();
+        s.add(role);
+
         User user = User.builder()
                 .username(signupRequestDto.getUsername())
                 .email(signupRequestDto.getEmail())
                 .password(passwordEncoder.encode(signupRequestDto.getPassword()))
+                .roles(s)
                 .build();
 
         userRepository.save(user);

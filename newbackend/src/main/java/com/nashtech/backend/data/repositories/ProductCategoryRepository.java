@@ -12,7 +12,7 @@ public interface ProductCategoryRepository extends JpaRepository<ProductCategory
 
     ProductCategory getProductCategoryByCategoryName(String name);
 
-    @Query(value = "SELECT category_name FROM product_category", nativeQuery = true)
+    @Query(value = "SELECT * FROM product_category", nativeQuery = true)
     List<ProductCategory> getAllCategoryName();
 
 }

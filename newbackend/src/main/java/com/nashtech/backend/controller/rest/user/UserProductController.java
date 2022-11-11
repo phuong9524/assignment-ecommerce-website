@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RequestMapping("/api/products")
+@RequestMapping("/api/user/products")
 @RestController
 public class UserProductController {
 
@@ -31,28 +31,12 @@ public class UserProductController {
 
     @GetMapping("/get")
     List<ShowAllProductForUserDto> getAllProduct(@RequestParam int pageNumber) {
-        return this.productService.getAllProduct(pageNumber);
+        return this.productService.getAllProductForUser(pageNumber);
     }
 
     @GetMapping("/latest")
     List<ShowLatestProductsDto> getLatestProduct() {
         return productService.showLatestProducts();
-    }
-
-    @PostMapping
-    ResponseEntity<?> createProduct(@Valid @RequestBody ProductRequestDto dto) {
-        return productService.createProduct(dto);
-    }
-
-    @PutMapping("/update/{id}")
-    ResponseEntity<?> updateProduct(@PathVariable("id") Integer id, @RequestBody ProductRequestDto dto) {
-        return productService.updateProduct(id, dto);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable("id") Integer id) {
-        this.productService.deleteProduct(id);
     }
 
 

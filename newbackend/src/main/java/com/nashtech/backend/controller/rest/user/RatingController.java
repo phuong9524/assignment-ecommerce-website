@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/rating")
+@RequestMapping("/api/user/rating")
 public class RatingController {
 
     RatingService ratingService;

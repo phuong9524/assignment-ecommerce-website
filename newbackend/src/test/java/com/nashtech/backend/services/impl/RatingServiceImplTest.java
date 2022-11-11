@@ -10,6 +10,9 @@ import com.nashtech.backend.dto.rating.FullRatingInfoDto;
 import com.nashtech.backend.dto.rating.ProductRatingRequestDto;
 import com.nashtech.backend.mappers.RatingMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.*;
@@ -20,50 +23,36 @@ public class RatingServiceImplTest {
     RatingRepository ratingRepository;
     RatingMapper ratingMapper;
     RatingServiceImpl ratingServiceImpl;
-    ProductRatingRequestDto productRatingDto;
+    ProductRatingRequestDto productRatingRequestDto;
     FullRatingInfoDto ratingResponseDto;
-    FullRatingInfoDto fullRatingInfoDto;
-    Rating expectedRating;
-    Product product;
-    User user;
+    Rating RatingObject;
+    Product productObject;
+    User userObject;
     ProductRepository productRepository;
-    ProductRatingRequestDto expectedProduct;
+    ProductRatingRequestDto expectedRating;
     UserRepository userRepository;
 
     @BeforeEach
     void setup() {
-        ratingRepository = mock(RatingRepository.class);
-        ratingMapper = mock(RatingMapper.class);
-        productRatingDto = mock(ProductRatingRequestDto.class);
-        ratingResponseDto = mock(FullRatingInfoDto.class);
-        productRepository = mock(ProductRepository.class);
-        userRepository = mock(UserRepository.class);
-        expectedRating = mock(Rating.class);
         ratingServiceImpl = new RatingServiceImpl(ratingRepository, ratingMapper, productRepository, userRepository);
     }
 
-//    @Test
-//    void addRating_shouldReturnRatingResponseDto() {
-//        fullRatingInfoDto = mock(FullRatingInfoDto.class);
-//
-//        product = mock(Product.class);
-//        user = mock(User.class);
-//
-//        expectedProduct = ProductRatingDto.builder()
-//                .productId(1)
-//                .rate(2.4)
-//                .comment("test")
-//                .username("phuong").build();
-//
-//
-//        when(productRepository.findById(1)).thenReturn(Optional.of(product));
-//        when(userRepository.findByUsername("phuong")).thenReturn(Optional.of(user));
-//        when(ratingMapper.mapDtoToEntity(productRatingDto, product, user)).thenReturn(expectedRating);
-//        when(ratingRepository.save(expectedRating)).thenReturn(expectedRating);
-//        when(ratingMapper.mapEntityToDto(expectedRating)).thenReturn(ratingResponseDto);
-//
-//        FullRatingInfoDto result = ratingServiceImpl.addRating(productRatingDto);
-//
-//        assertThat(result, is(ratingResponseDto));
-//    }
+    @Test
+    void addRating_shouldReturnRatingResponseDto() {
+        productRepository = mock(ProductRepository.class);
+        ratingRepository = mock(RatingRepository.class);
+        userRepository = mock(UserRepository.class);
+        ratingMapper = mock(RatingMapper.class);
+        productObject = mock(Product.class);
+        userObject = mock(User.class);
+        RatingObject = mock(Rating.class);
+
+
+        when(productRepository.findById(1)).thenReturn(Optional.of(productObject));
+        when(userRepository.findByUsername("phuong")).thenReturn(Optional.of(userObject));
+        when(ratingMapper.mapDtoToEntity(productRatingRequestDto, productObject, userObject)).thenReturn(RatingObject);
+        when(ratingRepository.save(RatingObject)).thenReturn(RatingObject);
+
+
+    }
 }

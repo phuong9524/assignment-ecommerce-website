@@ -1,8 +1,19 @@
 package com.nashtech.backend.exceptions;
 
-public class UsernameNotFoundException extends org.springframework.security.core.userdetails.UsernameNotFoundException {
-    public UsernameNotFoundException(String msg) {
-        super(msg);
+public class UsernameNotFoundException extends RuntimeException {
+
+    private static final Integer serialVersionUID = 1;
+
+    public UsernameNotFoundException() {
+        super();
+    }
+
+    public UsernameNotFoundException(String message) {
+        super(message);
+    }
+
+    public UsernameNotFoundException(String message, Throwable cause) {
+        super(message, cause);
     }
 
 }

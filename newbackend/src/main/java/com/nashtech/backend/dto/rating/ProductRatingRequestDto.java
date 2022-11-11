@@ -10,13 +10,11 @@ import javax.validation.constraints.NotNull;
 public class ProductRatingRequestDto {
 
     @NotNull
-    final Double rate;
+    private Double rate;
 
-    final String comment;
+    private String username;
 
-    final String username;
-
-    final Integer productId;
+    private Integer productId;
 
 }
 

@@ -6,10 +6,7 @@ import com.nashtech.backend.data.entities.Rating;
 import com.nashtech.backend.data.repositories.ProductCategoryRepository;
 import com.nashtech.backend.data.repositories.ProductRepository;
 import com.nashtech.backend.data.repositories.RatingRepository;
-import com.nashtech.backend.dto.product.ProductRequestDto;
-import com.nashtech.backend.dto.product.GetProductByIdDto;
-import com.nashtech.backend.dto.product.ShowAllProductForUserDto;
-import com.nashtech.backend.dto.product.ShowLatestProductsDto;
+import com.nashtech.backend.dto.product.*;
 import com.nashtech.backend.dto.rating.ShortRatingInfoDto;
 import com.nashtech.backend.exceptions.ProductNotFoundException;
 import com.nashtech.backend.exceptions.RatingNotFoundException;
@@ -20,11 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -80,6 +77,7 @@ public class ProductServiceImpl implements ProductService {
             count++;
         }
         avgRate = avgRate/count;
+        avgRate = Double.parseDouble(new DecimalFormat("##.#").format(avgRate));
 
         return productMapper.mapEntityToProductDto(product, avgRate);
     }
@@ -94,12 +92,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ShowAllProductForUserDto> getAllProduct(int pageNumber) {
-
+    public List<ShowAllProductForUserDto> getAllProductForUser(int pageNumber) {
         Pageable pageWithNumberAndSize = PageRequest.of(pageNumber, 16);
         Page<Product> productPage = productRepository.findAll(pageWithNumberAndSize);
         List<Product> products = productPage.getContent();
         return productMapper.mapEntityToAllProductForUserDto(products);
+    }
+
+    @Override
+    public List<ShowAllProductForAdminDto> getAllProductForAdmin(int pageNumber) {
+        Pageable pageWithNumberAndSize = PageRequest.of(pageNumber, 24);
+        Page<Product> productPage = productRepository.findAll(pageWithNumberAndSize);
+        List<Product> products = productPage.getContent();
+
+        return productMapper.mapEntityToAllProductForAdminDto(products);
     }
 
     @Override

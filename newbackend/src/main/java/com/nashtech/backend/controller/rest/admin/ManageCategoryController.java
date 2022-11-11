@@ -7,29 +7,25 @@ import com.nashtech.backend.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/category")
-public class CategoryController {
+@RequestMapping("/api/admin/category")
+public class ManageCategoryController {
 
     private final CategoryService categoryService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService) {
+    public ManageCategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/admin")
+    @GetMapping
     List<FullCategoryInfoDto> getAllCategoryForAdmin() {
         return categoryService.getAllCategoryForAdmin();
-    }
-
-    @GetMapping
-    List<ListCategoryNameDto> getListOfCategoryName() {
-        return categoryService.getListOfCategoryName();
     }
 
     @PostMapping

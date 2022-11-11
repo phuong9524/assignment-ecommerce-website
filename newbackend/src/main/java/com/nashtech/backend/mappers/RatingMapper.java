@@ -13,7 +13,6 @@ public class RatingMapper {
     public FullRatingInfoDto mapEntityToDto(Rating rating) {
         return FullRatingInfoDto.builder()
                 .rate(rating.getRate())
-                .comment(rating.getComment())
                 .user(rating.getUser())
                 .build();
     }
@@ -21,7 +20,6 @@ public class RatingMapper {
     public Rating mapDtoToEntity(ProductRatingRequestDto productRatingDto, Product product, User user) {
         return Rating.builder()
                 .rate(productRatingDto.getRate())
-                .comment(productRatingDto.getComment())
                 .product(product)
                 .user(user)
                 .build();

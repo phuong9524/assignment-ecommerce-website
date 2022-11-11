@@ -11,6 +11,6 @@ import lombok.experimental.SuperBuilder;
 @Builder
 public class ListCategoryNameDto {
 
-    private final String categoryName;
+    final String categoryName;
 
 }

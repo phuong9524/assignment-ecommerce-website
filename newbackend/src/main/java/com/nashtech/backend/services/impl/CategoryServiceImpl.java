@@ -63,10 +63,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategory(Integer id) {
+    public ResponseEntity<?> deleteCategory(Integer id) {
         Optional<ProductCategory> productCategoryOptional = productCategoryRepository.findById(id);
         if (productCategoryOptional.isPresent()) {
             productCategoryRepository.deleteById(id);
+            return ResponseEntity.ok(HttpStatus.NO_CONTENT);
         }
         throw new ProductCategoryNotFoundException();
     }

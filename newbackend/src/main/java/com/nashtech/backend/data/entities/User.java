@@ -19,8 +19,10 @@ public class User extends Auditable implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String username;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -31,6 +33,7 @@ public class User extends Auditable implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(unique = true)
     private Integer telephone;
 
     @OneToMany

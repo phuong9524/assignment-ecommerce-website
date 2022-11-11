@@ -1,8 +1,7 @@
 package com.nashtech.backend.security;
 
 import com.nashtech.backend.services.impl.UserDetailsImpl;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -38,8 +37,14 @@ public class JwtUtils {
     }
 
     public boolean validateJwtToken(String authToken) {
-        Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-        return true;
+        try {
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            return true;
+
+        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 

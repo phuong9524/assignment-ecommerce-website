@@ -17,6 +17,6 @@ public interface CategoryService {
 
     ResponseEntity<?> updateCategory(Integer id, CategoryRequestDto categoryRequestDto);
 
-    void deleteCategory(Integer id);
+    ResponseEntity<?> deleteCategory(Integer id);
 }
 

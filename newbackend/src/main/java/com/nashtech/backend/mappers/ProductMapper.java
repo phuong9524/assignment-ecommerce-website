@@ -2,10 +2,7 @@ package com.nashtech.backend.mappers;
 
 import com.nashtech.backend.data.entities.Product;
 import com.nashtech.backend.data.entities.ProductCategory;
-import com.nashtech.backend.dto.product.ProductRequestDto;
-import com.nashtech.backend.dto.product.GetProductByIdDto;
-import com.nashtech.backend.dto.product.ShowAllProductForUserDto;
-import com.nashtech.backend.dto.product.ShowLatestProductsDto;
+import com.nashtech.backend.dto.product.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,8 +23,22 @@ public class ProductMapper {
                 .categoryName(productObject.getProductCategory().getCategoryName())
                 .build())
         .collect(Collectors.toList());
-
     }
+
+    public List<ShowAllProductForAdminDto> mapEntityToAllProductForAdminDto(List<Product> products) {
+        return products.stream()
+                .map(productObject -> ShowAllProductForAdminDto.builder()
+                .id(productObject.getId())
+                .name(productObject.getName())
+                .price(productObject.getPrice())
+                .image(productObject.getImage())
+                .categoryName(productObject.getProductCategory().getCategoryName())
+                .creationDate(productObject.getCreationDate())
+                .lastModifiedDate(productObject.getModifiedDate())
+                .build())
+                .collect(Collectors.toList());
+    }
+
 
     public GetProductByIdDto mapEntityToProductDto(Product product, Double avgRate) {
         return GetProductByIdDto.builder()
@@ -53,6 +64,7 @@ public class ProductMapper {
                                 .build())
                 .collect(Collectors.toList());
     }
+
 
     public Product mapDtoToEntity(ProductRequestDto productUpdateDto, ProductCategory productCategory) {
         return Product.builder()

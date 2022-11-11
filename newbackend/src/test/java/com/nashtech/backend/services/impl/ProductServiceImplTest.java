@@ -2,6 +2,7 @@ package com.nashtech.backend.services.impl;
 
 import com.nashtech.backend.data.entities.Product;
 import com.nashtech.backend.data.entities.ProductCategory;
+import com.nashtech.backend.data.entities.Rating;
 import com.nashtech.backend.data.repositories.ProductCategoryRepository;
 import com.nashtech.backend.data.repositories.ProductRepository;
 import com.nashtech.backend.data.repositories.RatingRepository;
@@ -46,11 +47,6 @@ public class ProductServiceImplTest {
 
     @BeforeEach
     void setup() {
-//        expectedProduct = Product.builder()
-//                .name("pegasus")
-//                .description("shoes for men")
-//                .price(1000.0)
-//                .build();
 
         productMapper = mock(ProductMapper.class);
         productRepository = mock(ProductRepository.class);
@@ -72,9 +68,11 @@ public class ProductServiceImplTest {
 
     @Test
     void findById_shouldReturnProduct_whenDataValid() {
+
 //        showProductForUserDto = mock(ShowLatestProductsDto.class);
 //
 //        when(productRepository.findById(1)).thenReturn(Optional.of(expectedProduct));
+//        when(ratingRepository.getAllByProductId(1)).thenReturn()
 //        when(productMapper.mapEntityToDto(expectedProduct)).thenReturn(productResponseDto);
 //
 //        GetProductByIdDto result = productServiceImpl.getProductById(1);

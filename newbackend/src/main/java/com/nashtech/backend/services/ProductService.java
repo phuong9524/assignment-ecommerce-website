@@ -1,9 +1,6 @@
 package com.nashtech.backend.services;
 
-import com.nashtech.backend.dto.product.ProductRequestDto;
-import com.nashtech.backend.dto.product.GetProductByIdDto;
-import com.nashtech.backend.dto.product.ShowAllProductForUserDto;
-import com.nashtech.backend.dto.product.ShowLatestProductsDto;
+import com.nashtech.backend.dto.product.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -14,7 +11,9 @@ public interface ProductService {
 
     List<ShowLatestProductsDto> showLatestProducts();
 
-    List<ShowAllProductForUserDto> getAllProduct(int pageNumber);
+    List<ShowAllProductForUserDto> getAllProductForUser(int pageNumber);
+
+    List<ShowAllProductForAdminDto> getAllProductForAdmin(int pageNumber);
 
     ResponseEntity<?> createProduct(ProductRequestDto dto);
 
